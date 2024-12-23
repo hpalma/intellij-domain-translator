@@ -1,4 +1,4 @@
-rootProject.name = "Domain Translator"
+rootProject.name = "domain-translator"
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"

@@ -2,6 +2,7 @@
     <id>org.hugopalma.domaintranslator</id>
     <name>Domain Translator</name>
     <vendor>Hugo Palma</vendor>
+    <description>Translates domain words based on a csv file.</description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.java</depends>
