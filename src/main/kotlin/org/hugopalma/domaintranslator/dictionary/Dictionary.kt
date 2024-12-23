@@ -1,0 +1,65 @@
+package org.hugopalma.domaintranslator.dictionary
+
+import ai.grazie.utils.isUppercase
+import io.ktor.util.*
+
+class Dictionary(values: Map<String, String>) {
+
+    private val dictionary: Map<String, String> = values.toMap()
+
+    val timestamp = System.currentTimeMillis()
+
+    fun translate(text: String): String? {
+        val lowercaseToTranslate = text.toLowerCasePreservingASCIIRules()
+
+        if (dictionary.containsKey(lowercaseToTranslate)) {
+            return formatTranslation(text, dictionary[lowercaseToTranslate]!!)
+        }
+
+        dictionary.forEach {
+            if (lowercaseToTranslate.contains(it.key)) {
+                val startIndex = lowercaseToTranslate.indexOf(it.key)
+
+                val toTranslate = text.substring(startIndex, startIndex + it.key.length)
+                val translated = formatTranslation(toTranslate, dictionary[it.key]!!)
+
+                return text.replace(it.key, translated, true)
+            }
+        }
+
+        return null
+    }
+
+    fun contains(text: String): Boolean {
+        return dictionary.containsKey(text.toLowerCasePreservingASCIIRules());
+    }
+
+    private fun formatTranslation(original: String, translation: String): String {
+        if (original.isUppercase()) {
+            return translation.uppercase().replace(" ", "_")
+        }
+
+        if (original.first().isUpperCase()) {
+            return toCamelCase(translation)
+        } else {
+            return toCamelCase(translation, true)
+        }
+    }
+
+    private fun toCamelCase(sentence: String, lowercase: Boolean = false): String {
+        val transformed = sentence.split(" ") // Split the sentence by spaces
+            .joinToString("") { word ->
+                word.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase() else it.toString()
+                }
+            }
+
+        if (lowercase) {
+            return transformed.replaceFirstChar {
+                it.lowercase()
+            }
+        }
+
+        return transformed
+    }
+}

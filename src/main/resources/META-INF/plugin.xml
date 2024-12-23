@@ -1,0 +1,14 @@
+<idea-plugin>
+    <id>org.hugopalma.domaintranslator</id>
+    <name>Domain Translator</name>
+    <vendor>Hugo Palma</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <annotator
+                language="JAVA"
+                implementationClass="org.hugopalma.domaintranslator.editor.EditorAnnotator"/>
+    </extensions>
+</idea-plugin>
