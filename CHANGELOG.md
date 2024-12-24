@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added inline elements showing translation.
+- Exclude import and package statements.
+
 ## [1.0.0] - 2024-12-24
 
 ### Added

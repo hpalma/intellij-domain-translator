@@ -31,7 +31,7 @@ class Dictionary(values: Map<String, String>) {
     }
 
     fun contains(text: String): Boolean {
-        return dictionary.containsKey(text.toLowerCasePreservingASCIIRules());
+        return dictionary.containsKey(text.toLowerCasePreservingASCIIRules())
     }
 
     private fun formatTranslation(original: String, translation: String): String {

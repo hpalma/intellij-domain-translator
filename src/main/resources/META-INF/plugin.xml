@@ -2,7 +2,12 @@
     <id>org.hugopalma.domaintranslator</id>
     <name>Domain Translator</name>
     <vendor>Hugo Palma</vendor>
-    <description>Translates domain words based on a csv file.</description>
+    <description>
+        Translates domain words based on a csv file.
+
+        Add a "dictionary.csv" file to your module root folder. The file should be ";" delimited and have two columns per line, where first column is the
+        word to be translated and the second column is the translation.
+    </description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.java</depends>

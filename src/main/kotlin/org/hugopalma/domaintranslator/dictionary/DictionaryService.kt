@@ -37,7 +37,7 @@ class DictionaryService {
             }
         }
 
-        return null;
+        return null
     }
 
     private fun parseCsvToMap(filePath: String): Map<String, String> {
