@@ -1,5 +1,6 @@
 package org.hugopalma.domaintranslator.dictionary
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleUtilCore
@@ -7,6 +8,7 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import io.ktor.util.*
+import org.hugopalma.domaintranslator.settings.Settings
 import java.io.File
 
 @Service(Service.Level.PROJECT)
@@ -29,9 +31,11 @@ class DictionaryService {
 
     private fun findFileInContentRoots(module: Module): VirtualFile? {
         val contentRoots = ModuleRootManager.getInstance(module).contentRoots
+        val settings = ApplicationManager.getApplication().getService(Settings::class.java).state
+        val filePath = settings.dictionaryFile ?: "dictionary.csv"
 
         for (root in contentRoots) {
-            val file = root.findChild("dictionary.csv")
+            val file = root.findChild(filePath)
             if (file != null && !file.isDirectory) {
                 return file
             }

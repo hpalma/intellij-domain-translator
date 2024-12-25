@@ -5,6 +5,7 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.lang.java.JavaLanguage
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.InlayProperties
 import com.intellij.openapi.editor.colors.TextAttributesKey
@@ -18,6 +19,7 @@ import com.intellij.psi.PsiPackageStatement
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.UIUtil
 import org.hugopalma.domaintranslator.dictionary.DictionaryService
+import org.hugopalma.domaintranslator.settings.Settings
 import java.awt.Font
 
 class EditorAnnotator : Annotator {
@@ -46,32 +48,34 @@ class EditorAnnotator : Annotator {
         }
 
         val inlayModel = editor!!.inlayModel
-
         val ta = TextAttributesKey.createTextAttributesKey("domain.translation", TextAttributes(null, null, JBColor.CYAN, EffectType.BOLD_DOTTED_LINE, Font.PLAIN))
+        val settings = ApplicationManager.getApplication().getService(Settings::class.java).state
 
         if (translation != null) {
-            holder.newAnnotation(HighlightSeverity.INFORMATION, "Domain Translation: " + translation)
+            holder.newAnnotation(HighlightSeverity.INFORMATION, "Domain Translation: $translation")
                 .range(element.getTextRange())
                 .textAttributes(ta)
                 .create()
 
-            val ip = InlayProperties().apply {
-                showAbove(false)
-                relatesToPrecedingText(false)
-                priority(1000)
-                disableSoftWrapping(false)
+            if (settings.showInlays) {
+                val ip = InlayProperties().apply {
+                    showAbove(false)
+                    relatesToPrecedingText(false)
+                    priority(1000)
+                    disableSoftWrapping(false)
+                }
+
+                UIUtil.invokeLaterIfNeeded(
+                    kotlinx.coroutines.Runnable {
+                        val indent = editor.offsetToPoint2D(element.getTextRange().startOffset).x.toInt()
+                        val inlays = inlayModel.getInlineElementsInRange(element.getTextRange().startOffset, element.getTextRange().endOffset)
+
+                        if (inlays.isNotEmpty()) {
+                            inlays.forEach { it.dispose() }
+                        }
+                        inlayModel.addInlineElement<HintRenderer>(element.getTextRange().startOffset, ip, CustomHintRenderer("($translation)", indent))
+                    })
             }
-
-            UIUtil.invokeLaterIfNeeded(
-                kotlinx.coroutines.Runnable {
-                    val indent = editor.offsetToPoint2D(element.getTextRange().startOffset).x.toInt()
-                    val inlays = inlayModel.getInlineElementsInRange(element.getTextRange().startOffset, element.getTextRange().endOffset)
-
-                    if (inlays.isNotEmpty()) {
-                        inlays.forEach { it.dispose() }
-                    }
-                    inlayModel.addInlineElement<HintRenderer>(element.getTextRange().startOffset, ip, CustomHintRenderer("($translation)", indent))
-                })
         } else {
             val inlays = inlayModel.getInlineElementsInRange(element.getTextRange().startOffset, element.getTextRange().endOffset)
 

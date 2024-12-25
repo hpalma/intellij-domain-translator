@@ -10,7 +10,7 @@ import java.awt.Rectangle
 class CustomHintRenderer(text: String?, private val indent: Int) : HintRenderer(text) {
     override fun paint(inlay: Inlay<*>, g: Graphics, r: Rectangle, textAttributes: TextAttributes) {
         r.x = indent
-        r.y = r.y +2
+        r.y += 2
         customizeText(inlay, textAttributes)
 
         super.paint(inlay, g, r, textAttributes)

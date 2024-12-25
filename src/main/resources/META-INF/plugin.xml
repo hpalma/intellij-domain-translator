@@ -2,12 +2,12 @@
     <id>org.hugopalma.domaintranslator</id>
     <name>Domain Translator</name>
     <vendor>Hugo Palma</vendor>
-    <description>
-        Translates domain words based on a csv file.
-
-        Add a "dictionary.csv" file to your module root folder. The file should be ";" delimited and have two columns per line, where first column is the
-        word to be translated and the second column is the translation.
-    </description>
+    <description><![CDATA[
+        Translates domain words based on a csv file. Does not connect to any translation service.
+        <br/><br/>
+        Use this if you want to have a custom-made glossary of terms that you want to display its translation. Very useful for example
+        in projects where the domain language is foreign.
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.java</depends>
@@ -16,5 +16,11 @@
         <annotator
                 language="JAVA"
                 implementationClass="org.hugopalma.domaintranslator.editor.EditorAnnotator"/>
+
+        <applicationConfigurable
+                parentId="editor"
+                instance="org.hugopalma.domaintranslator.settings.SettingsConfigurable"
+                id="org.hugopalma.domaintranslator.settings.SettingsConfigurable"
+                displayName="Domain Translator"/>
     </extensions>
 </idea-plugin>

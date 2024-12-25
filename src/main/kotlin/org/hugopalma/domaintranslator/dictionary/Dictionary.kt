@@ -39,10 +39,10 @@ class Dictionary(values: Map<String, String>) {
             return translation.uppercase().replace(" ", "_")
         }
 
-        if (original.first().isUpperCase()) {
-            return toCamelCase(translation)
+        return if (original.first().isUpperCase()) {
+            toCamelCase(translation)
         } else {
-            return toCamelCase(translation, true)
+            toCamelCase(translation, true)
         }
     }
 
