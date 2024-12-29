@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Improved ui for inlay hints.
+
 ## [1.0.2] - 2024-12-25
 
 ### Added

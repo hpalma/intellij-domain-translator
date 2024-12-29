@@ -13,6 +13,10 @@
     <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.inlayProvider
+                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
+                language="JAVA"/>
+
         <annotator
                 language="JAVA"
                 implementationClass="org.hugopalma.domaintranslator.editor.EditorAnnotator"/>
