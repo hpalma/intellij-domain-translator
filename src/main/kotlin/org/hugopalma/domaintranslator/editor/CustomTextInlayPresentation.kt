@@ -11,6 +11,7 @@ import com.intellij.ui.JBColor
 import java.awt.Graphics2D
 import java.awt.RenderingHints
 
+@Suppress("UnstableApiUsage")
 class CustomTextInlayPresentation(
     private val metricsStorage: InlayTextMetricsStorage,
     private val text: String,
