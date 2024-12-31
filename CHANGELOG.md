@@ -2,14 +2,11 @@
 
 ## [Unreleased]
 
-### Added
-
-- Settings for inlay styling
-- Plugin icon
-
-## [1.0.3] - 2024-12-29
+## [1.0.3] - 2024-12-31
 
 - Improved ui for inlay hints.
+- Settings for inlay styling
+- Plugin icon
 
 ## [1.0.2] - 2024-12-25
 
