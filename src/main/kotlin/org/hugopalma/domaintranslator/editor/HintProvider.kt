@@ -7,7 +7,6 @@ import com.intellij.lang.java.JavaLanguage
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -19,8 +18,6 @@ import javax.swing.JPanel
 
 @Suppress("UnstableApiUsage")
 class HintProvider : InlayHintsProvider<NoSettings> {
-
-    val MY_KEYWORD: TextAttributesKey = TextAttributesKey.createTextAttributesKey("MY_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD)
 
     override fun getCollectorFor(file: PsiFile, editor: Editor, settings: NoSettings, sink: InlayHintsSink): InlayHintsCollector? {
         val settingsState = ApplicationManager.getApplication().getService(Settings::class.java).state
