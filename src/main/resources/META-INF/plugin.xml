@@ -19,7 +19,7 @@
 
         <annotator
                 language="JAVA"
-                implementationClass="org.hugopalma.domaintranslator.editor.EditorAnnotator"/>
+                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
 
         <applicationConfigurable
                 parentId="editor"
