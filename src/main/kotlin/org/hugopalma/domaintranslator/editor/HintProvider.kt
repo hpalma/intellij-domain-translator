@@ -63,7 +63,7 @@ class HintProvider : InlayHintsProvider<NoSettings> {
 
 private class CustomTextInlayPresentation(private val text: String, private val editor: Editor, private val element: PsiElement) : BasePresentation() {
     override val width: Int = editor.component.getFontMetrics(editor.component.font).stringWidth(text)
-    override val height: Int = editor.component.getFontMetrics(editor.component.font).height - 5
+    override val height: Int = editor.component.getFontMetrics(editor.component.font).height
 
     override fun paint(g: Graphics2D, attributes: TextAttributes) {
         val indent = editor.offsetToPoint2D(element.startOffset).x.toInt()
