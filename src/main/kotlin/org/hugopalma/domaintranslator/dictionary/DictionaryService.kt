@@ -3,7 +3,9 @@ package org.hugopalma.domaintranslator.dictionary
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.module.Module
+import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.module.ModuleUtilCore
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
@@ -15,6 +17,7 @@ import java.io.File
 class DictionaryService {
     private val dictionaries: MutableMap<String, Dictionary> = mutableMapOf()
 
+    @Synchronized
     fun getDictionary(element: PsiElement): Dictionary? {
         val module: Module = ModuleUtilCore.findModuleForPsiElement(element) ?: return null
         val moduleName = module.name
@@ -26,11 +29,13 @@ class DictionaryService {
         }
 
         dictionaries[moduleName] = Dictionary(parseCsvToMap(dictionaryFile.path))
+
         return dictionaries[moduleName]
     }
 
     private fun findFileInContentRoots(module: Module): VirtualFile? {
-        val contentRoots = ModuleRootManager.getInstance(module).contentRoots
+        val rootModule = findRootModuleByFolderStructure(module.project, module) ?: module
+        val contentRoots = ModuleRootManager.getInstance(rootModule).contentRoots
         val settings = ApplicationManager.getApplication().getService(Settings::class.java).state
         val filePath = settings.dictionaryFile ?: "dictionary.csv"
 
@@ -42,6 +47,32 @@ class DictionaryService {
         }
 
         return null
+    }
+
+    private fun findRootModuleByFolderStructure(project: Project, module: Module): Module? {
+        val moduleManager = ModuleManager.getInstance(project)
+        val modules = moduleManager.modules
+
+        var currentRootPath = ModuleRootManager.getInstance(module)
+            .contentRoots
+            .firstOrNull()
+            ?.path ?: return null
+
+        var rootModule: Module = module
+
+        for (candidateModule in modules) {
+            val candidatePath = ModuleRootManager.getInstance(candidateModule)
+                .contentRoots
+                .firstOrNull()
+                ?.path ?: continue
+
+            if (File(currentRootPath).startsWith(File(candidatePath))) {
+                rootModule = candidateModule
+                currentRootPath = candidatePath
+            }
+        }
+
+        return rootModule
     }
 
     private fun parseCsvToMap(filePath: String): Map<String, String> {
