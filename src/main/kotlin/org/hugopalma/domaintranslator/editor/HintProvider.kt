@@ -1,9 +1,10 @@
+@file:Suppress("UnstableApiUsage")
+
 package org.hugopalma.domaintranslator.editor
 
 import com.intellij.codeInsight.hints.*
 import com.intellij.codeInsight.hints.presentation.BasePresentation
 import com.intellij.codeInsight.hints.presentation.PresentationFactory
-import com.intellij.lang.java.JavaLanguage
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.Editor
@@ -15,8 +16,6 @@ import org.hugopalma.domaintranslator.settings.Settings
 import java.awt.Graphics2D
 import javax.swing.JPanel
 
-
-@Suppress("UnstableApiUsage")
 class HintProvider : InlayHintsProvider<NoSettings> {
 
     override fun getCollectorFor(file: PsiFile, editor: Editor, settings: NoSettings, sink: InlayHintsSink): InlayHintsCollector? {
@@ -24,13 +23,14 @@ class HintProvider : InlayHintsProvider<NoSettings> {
 
         return when {
             !settingsState.showInlays -> null
-            acceptsFile(file) -> Collector(editor)
+            isSupported(file.language) -> Collector(editor)
             else -> null
         }
     }
 
     private class Collector(editor: Editor) : FactoryInlayHintsCollector(editor) {
         override fun collect(element: PsiElement, editor: Editor, sink: InlayHintsSink): Boolean {
+            if (!isSupportedElement(element)) return true
             val translation = findTranslation(element) ?: return true
 
             val presentation = CustomTextInlayPresentation(translation, editor, element)
@@ -46,8 +46,6 @@ class HintProvider : InlayHintsProvider<NoSettings> {
         }
     }
 
-    private fun acceptsFile(file: PsiFile): Boolean = file.language == JavaLanguage.INSTANCE
-
     override fun createSettings() = NoSettings()
 
     override fun createConfigurable(settings: NoSettings): ImmediateConfigurable {
@@ -61,7 +59,7 @@ class HintProvider : InlayHintsProvider<NoSettings> {
     override val previewText: String? = null
 }
 
-private class CustomTextInlayPresentation(private val text: String, private val editor: Editor, private val element: PsiElement) : BasePresentation() {
+internal class CustomTextInlayPresentation(private val text: String, private val editor: Editor, private val element: PsiElement) : BasePresentation() {
     override val width: Int = editor.component.getFontMetrics(editor.component.font).stringWidth(text)
     override val height: Int = editor.component.getFontMetrics(editor.component.font).height
 

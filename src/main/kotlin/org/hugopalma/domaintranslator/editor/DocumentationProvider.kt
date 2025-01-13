@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 class DocumentationProvider : Annotator {
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
+        if (!isSupportedElement(element)) return
         val translation = findTranslation(element) ?: return
 
         holder.newSilentAnnotation(HighlightSeverity.INFORMATION)

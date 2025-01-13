@@ -11,11 +11,20 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.java</depends>
+    <depends>JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.inlayProvider
                 implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
+                language="JavaScript"/>
+
+        <codeInsight.inlayProvider
+                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
                 language="JAVA"/>
+
+        <annotator
+                language="JavaScript"
+                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
 
         <annotator
                 language="JAVA"

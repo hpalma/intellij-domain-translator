@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support for javascript and typescript.
+
 ## [1.0.4] - 2025-01-03
 
 ### Fixed
