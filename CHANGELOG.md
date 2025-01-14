@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.0.6] - 2025-01-14
+
+### Added
+
+- Support for kotlin
+
 ## [1.0.5] - 2025-01-13
 
 ### Added
@@ -40,7 +46,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.5...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...HEAD
+[1.0.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.2...v1.0.3

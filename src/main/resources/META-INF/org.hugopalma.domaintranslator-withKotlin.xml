@@ -1,0 +1,11 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.inlayProvider
+                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
+                language="kotlin"/>
+
+        <annotator
+                language="kotlin"
+                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
+    </extensions>
+</idea-plugin>

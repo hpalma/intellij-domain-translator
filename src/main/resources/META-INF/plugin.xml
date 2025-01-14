@@ -7,24 +7,24 @@
         <br/><br/>
         Use this if you want to have a custom-made glossary of terms that you want to display its translation. Very useful for example
         in projects where the domain language is foreign.
+        <br/><br/>
+        <b>Supported Languages:</b>
+        <ul>
+        <li>Java</li>
+        <li>Javascript</li>
+        <li>Typescript</li>
+        </ul>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.java</depends>
-    <depends>JavaScript</depends>
+    <depends optional="true" config-file="org.hugopalma.domaintranslator-withJavascript.xml">JavaScript</depends>
+    <depends optional="true" config-file="org.hugopalma.domaintranslator-withKotlin.xml">org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.inlayProvider
                 implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
-                language="JavaScript"/>
-
-        <codeInsight.inlayProvider
-                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
                 language="JAVA"/>
-
-        <annotator
-                language="JavaScript"
-                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
 
         <annotator
                 language="JAVA"

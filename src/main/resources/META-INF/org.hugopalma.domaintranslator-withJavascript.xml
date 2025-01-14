@@ -1,0 +1,11 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.inlayProvider
+                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
+                language="JavaScript"/>
+
+        <annotator
+                language="JavaScript"
+                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
+    </extensions>
+</idea-plugin>
