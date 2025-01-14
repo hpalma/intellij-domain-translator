@@ -32,7 +32,7 @@ private val SUPPORTED_LANGUAGES: Collection<Language?> = listOf(
 )
 
 fun isSupported(language: Language): Boolean {
-    return SUPPORTED_LANGUAGES.any({ it?.`is`(language) ?: false })
+    return SUPPORTED_LANGUAGES.any { it?.`is`(language) ?: false }
 }
 
 fun isSupportedElement(element: PsiElement?): Boolean {
