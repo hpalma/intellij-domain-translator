@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.0.7] - 2025-01-14
+
+### Fixed
+
+- Signal support for kotlin in plugin description
+
 ## [1.0.6] - 2025-01-14
 
 ### Added
@@ -46,7 +52,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.3...v1.0.4
