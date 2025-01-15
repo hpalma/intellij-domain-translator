@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.0.8] - 2025-01-15
+
+### Fixed
+
+- Declare support for k2 in plugin descriptor
+
 ## [1.0.7] - 2025-01-14
 
 ### Fixed
@@ -52,7 +58,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.7...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.4...v1.0.5
