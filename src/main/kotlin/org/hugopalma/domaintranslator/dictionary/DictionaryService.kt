@@ -7,11 +7,13 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import io.ktor.util.*
 import org.hugopalma.domaintranslator.settings.Settings
 import java.io.File
+import kotlin.io.path.Path
 
 @Service(Service.Level.PROJECT)
 class DictionaryService {
@@ -37,7 +39,17 @@ class DictionaryService {
         val rootModule = findRootModuleByFolderStructure(module.project, module) ?: module
         val contentRoots = ModuleRootManager.getInstance(rootModule).contentRoots
         val settings = ApplicationManager.getApplication().getService(Settings::class.java).state
-        val filePath = settings.dictionaryFile ?: "dictionary.csv"
+
+        val filePath: String
+        if (settings.dictionaryFile != null) {
+            if (Path(settings.dictionaryFile!!).isAbsolute) {
+                return LocalFileSystem.getInstance().findFileByPath(settings.dictionaryFile!!)
+            }
+
+            filePath = settings.dictionaryFile!!
+        } else {
+            filePath = "dictionary.csv"
+        }
 
         for (root in contentRoots) {
             val file = root.findChild(filePath)
