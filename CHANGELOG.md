@@ -7,16 +7,11 @@
 ### Added
 
 - Allow not displaying inlays for some words
+- Support for absolute path in dictionary setting
 
 ### Fixed
 
 - Inlay takes a little less vertical space
-
-## [1.0.9] - 2025-01-17
-
-### Added
-
-- Support for absolute path in dictionary setting
 
 ## [1.0.8] - 2025-01-15
 
