@@ -14,16 +14,26 @@ import javax.swing.plaf.LabelUI
 
 class SettingsComponent {
     private var mainPanel: JPanel? = null
+    private var hideInlaysPanel: JPanel
     private val showInlays = JBCheckBox("Display inlays", true)
-    private val dictionayFile = JBTextField()
+    private val dictionaryFile = JBTextField()
+    private val hideInlays = JBTextField()
 
     init {
+        hideInlaysPanel = FormBuilder.createFormBuilder()
+            .addLabeledComponent("Words to hide in inlay:", hideInlays, 1, false)
+            .addComponent(CommentLabel("List of words that won't be translated in inlay separated by comma"))
+            .panel
+
+        showInlays.addChangeListener { hideInlaysPanel.isVisible = showInlays.isSelected }
+
         mainPanel = FormBuilder.createFormBuilder()
-            .addLabeledComponent(JBLabel("Dictionary file:"), dictionayFile, 1, false)
+            .addLabeledComponent("Dictionary file:", dictionaryFile, 1, false)
             .addComponent(CommentLabel("Path to dictionary .csv file relative to module root. Defaults to \$MODULE_ROOT${Path.DIRECTORY_SEPARATOR}dictionary.csv"))
             .addVerticalGap(UIUtil.DEFAULT_VGAP)
             .addComponent(showInlays, 1)
             .addComponent(CommentLabel("Should the inline domain translation be displayed"))
+            .addComponentToRightColumn(hideInlaysPanel)
             .addComponentFillVertically(JPanel(), 0)
             .panel
     }
@@ -36,20 +46,29 @@ class SettingsComponent {
         return showInlays
     }
 
-    fun getDictionaryFile():String {
-        return dictionayFile.text
+    fun getDictionaryFile(): String {
+        return dictionaryFile.text
     }
 
-    fun setDictionaryFile(dictionaryFile: String?) {
-        dictionayFile.text = dictionaryFile
+    fun setDictionaryFile(value: String?) {
+        dictionaryFile.text = value
     }
 
-    fun showInlays() :Boolean {
+    fun showInlays(): Boolean {
         return showInlays.isSelected
     }
 
     fun setShowInlays(value: Boolean) {
         showInlays.isSelected = value
+        hideInlaysPanel.isVisible = value
+    }
+
+    fun getHideInlays(): String {
+        return hideInlays.text
+    }
+
+    fun setHideInlays(value: String) {
+        hideInlays.text = value
     }
 }
 

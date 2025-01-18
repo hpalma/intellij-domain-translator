@@ -20,13 +20,15 @@ class SettingsConfigurable : Configurable {
     override fun isModified(): Boolean {
         val state = getState()
         return settingsComponent!!.showInlays() != state.showInlays ||
-                settingsComponent!!.getDictionaryFile() != state.dictionaryFile
+                settingsComponent!!.getDictionaryFile() != state.dictionaryFile ||
+                settingsComponent!!.getHideInlays() != state.hideInlays
     }
 
     override fun reset() {
         val state = getState()
-        settingsComponent!!.setShowInlays(state.showInlays)
         settingsComponent!!.setDictionaryFile(state.dictionaryFile)
+        settingsComponent!!.setShowInlays(state.showInlays)
+        settingsComponent!!.setHideInlays(state.hideInlays)
     }
 
     override fun disposeUIResources() {
@@ -35,8 +37,9 @@ class SettingsConfigurable : Configurable {
 
     override fun apply() {
         val state = getState()
-        state.showInlays = settingsComponent!!.showInlays()
         state.dictionaryFile = settingsComponent!!.getDictionaryFile()
+        state.showInlays = settingsComponent!!.showInlays()
+        state.hideInlays = settingsComponent!!.getHideInlays()
     }
 
     override fun getDisplayName(): String {

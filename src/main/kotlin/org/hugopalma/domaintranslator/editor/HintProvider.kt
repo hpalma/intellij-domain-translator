@@ -12,9 +12,11 @@ import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.startOffset
+import io.ktor.util.*
 import org.hugopalma.domaintranslator.settings.Settings
 import java.awt.Graphics2D
 import javax.swing.JPanel
+import kotlin.math.roundToInt
 
 class HintProvider : InlayHintsProvider<NoSettings> {
 
@@ -32,6 +34,9 @@ class HintProvider : InlayHintsProvider<NoSettings> {
         override fun collect(element: PsiElement, editor: Editor, sink: InlayHintsSink): Boolean {
             if (!isSupportedElement(element)) return true
             val translation = findTranslation(element) ?: return true
+
+            val settingsState = ApplicationManager.getApplication().getService(Settings::class.java).state
+            if (settingsState.wordsToHideInlays.contains(element.text.toLowerCasePreservingASCIIRules())) return true
 
             val presentation = CustomTextInlayPresentation(translation, editor, element)
 
@@ -61,7 +66,7 @@ class HintProvider : InlayHintsProvider<NoSettings> {
 
 internal class CustomTextInlayPresentation(private val text: String, private val editor: Editor, private val element: PsiElement) : BasePresentation() {
     override val width: Int = editor.component.getFontMetrics(editor.component.font).stringWidth(text)
-    override val height: Int = editor.component.getFontMetrics(editor.component.font).height
+    override val height: Int = (editor.component.getFontMetrics(editor.component.font).height * 0.75).roundToInt()
 
     override fun paint(g: Graphics2D, attributes: TextAttributes) {
         val indent = editor.offsetToPoint2D(element.startOffset).x.toInt()

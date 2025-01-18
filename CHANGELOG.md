@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [1.1] - 2025-01-18
+
+### Added
+
+- Allow not displaying inlays for some words
+
+### Fixed
+
+- Inlay takes a little less vertical space
+
 ## [1.0.9] - 2025-01-17
 
 ### Added
@@ -64,7 +74,7 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.9...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.1...HEAD
 [1.0.9]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...v1.0.7
@@ -75,3 +85,4 @@
 [1.0.2]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/hpalma/intellij-domain-translator/commits/v1.0.0
+[1.1]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.9...v1.1
