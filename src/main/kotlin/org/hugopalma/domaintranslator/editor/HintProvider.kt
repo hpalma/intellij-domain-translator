@@ -23,7 +23,7 @@ class HintProvider : InlayHintsProvider<NoSettings> {
 
         return when {
             !settingsState.showInlays -> null
-            isSupported(file.language) -> Collector(editor)
+            isSupported(file.fileType) -> Collector(editor)
             else -> null
         }
     }

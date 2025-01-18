@@ -1,15 +1,15 @@
 package org.hugopalma.domaintranslator.editor
 
+import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.ide.plugins.PluginManagerCore
-import com.intellij.lang.Language
 import com.intellij.lang.ecmascript6.psi.impl.ES6ClassImpl
-import com.intellij.lang.java.JavaLanguage
-import com.intellij.lang.javascript.JavascriptLanguage
-import com.intellij.lang.javascript.dialects.ECMA6LanguageDialect
-import com.intellij.lang.javascript.dialects.TypeScriptLanguageDialect
+import com.intellij.lang.javascript.JavaScriptFileType
+import com.intellij.lang.javascript.TypeScriptFileType
 import com.intellij.lang.javascript.psi.impl.JSFunctionImpl
 import com.intellij.lang.javascript.psi.impl.JSReferenceExpressionImpl
+import com.intellij.lang.javascript.psi.impl.JSVariableImpl
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiIdentifier
 import com.intellij.psi.PsiImportStatement
@@ -17,22 +17,21 @@ import com.intellij.psi.PsiPackageStatement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.hugopalma.domaintranslator.dictionary.DictionaryService
-import org.jetbrains.kotlin.idea.KotlinLanguage
+import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.psi.*
 
 private val kotlinPluginId = PluginId.getId("org.jetbrains.kotlin")
 private val javascriptPluginId = PluginId.getId("JavaScript")
 
-private val SUPPORTED_LANGUAGES: Collection<Language?> = listOf(
-    JavaLanguage.INSTANCE,
-    if (isKotlinEnabled()) KotlinLanguage.INSTANCE else null,
-    if (isJavascriptEnabled()) JavascriptLanguage.INSTANCE else null,
-    if (isJavascriptEnabled()) TypeScriptLanguageDialect.getInstance() else null,
-    if (isJavascriptEnabled()) ECMA6LanguageDialect.getInstance() else null
+private val SUPPORTED_LANGUAGES: Collection<*> = listOf(
+    JavaFileType::class,
+    if (isKotlinEnabled()) KotlinFileType::class else null,
+    if (isJavascriptEnabled()) JavaScriptFileType::class else null,
+    if (isJavascriptEnabled()) TypeScriptFileType::class else null,
 )
 
-fun isSupported(language: Language): Boolean {
-    return SUPPORTED_LANGUAGES.any { it?.`is`(language) ?: false }
+fun isSupported(languageFileType: FileType): Boolean {
+    return SUPPORTED_LANGUAGES.any { it == languageFileType::class }
 }
 
 fun isSupportedElement(element: PsiElement?): Boolean {
@@ -66,7 +65,8 @@ private fun isSupportedJavascriptElement(element: PsiElement?): Boolean {
             element !is PsiWhiteSpaceImpl &&
             (element.parent is ES6ClassImpl ||
                     element.parent is JSFunctionImpl<*> ||
-                    element.parent is JSReferenceExpressionImpl
+                    element.parent is JSReferenceExpressionImpl ||
+                    element.parent is JSVariableImpl<*, *>
                     )
 }
 
