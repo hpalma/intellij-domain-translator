@@ -6,6 +6,7 @@ import com.intellij.codeInsight.hints.*
 import com.intellij.codeInsight.hints.presentation.BasePresentation
 import com.intellij.codeInsight.hints.presentation.PresentationFactory
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.markup.TextAttributes
@@ -22,6 +23,8 @@ class HintProvider : InlayHintsProvider<NoSettings> {
 
     override fun getCollectorFor(file: PsiFile, editor: Editor, settings: NoSettings, sink: InlayHintsSink): InlayHintsCollector? {
         val settingsState = ApplicationManager.getApplication().getService(Settings::class.java).state
+
+        thisLogger().warn("File type is ${file.fileType}")
 
         return when {
             !settingsState.showInlays -> null

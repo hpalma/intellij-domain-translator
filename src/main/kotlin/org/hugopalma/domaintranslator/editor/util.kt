@@ -19,15 +19,18 @@ import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.hugopalma.domaintranslator.dictionary.DictionaryService
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.psi.*
+import org.jetbrains.vuejs.lang.html.VueFileType
 
 private val kotlinPluginId = PluginId.getId("org.jetbrains.kotlin")
 private val javascriptPluginId = PluginId.getId("JavaScript")
+private val vuePluginId = PluginId.getId("org.jetbrains.plugins.vue")
 
 private val SUPPORTED_LANGUAGES: Collection<*> = listOf(
     JavaFileType::class,
     if (isKotlinEnabled()) KotlinFileType::class else null,
     if (isJavascriptEnabled()) JavaScriptFileType::class else null,
     if (isJavascriptEnabled()) TypeScriptFileType::class else null,
+    if (isVueEnabled()) VueFileType::class else null,
 )
 
 fun isSupported(languageFileType: FileType): Boolean {
@@ -54,6 +57,11 @@ private fun isSupportedKotlinElement(element: PsiElement?): Boolean {
 
 private fun isKotlinEnabled(): Boolean {
     val plugin = PluginManagerCore.getPlugin(kotlinPluginId)
+    return plugin != null && plugin.isEnabled
+}
+
+private fun isVueEnabled(): Boolean {
+    val plugin = PluginManagerCore.getPlugin(vuePluginId)
     return plugin != null && plugin.isEnabled
 }
 

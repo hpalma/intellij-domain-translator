@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-02-11
+
+### Added
+
+- Support for vue files
+
 ## [1.1.0] - 2025-01-18
 
 ### Added
@@ -69,7 +75,9 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.1...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.1.0
 [1.0.9]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.6...v1.0.7
