@@ -34,16 +34,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Gradle IntelliJ Plugin version
-      placeholder: 1.16.0
-    validations:
-      required: true
-
-  - type: input
-    id: gradle
-    attributes:
-      label: Gradle version
-      placeholder: 8.2.1
+      label: IntelliJ Plugin version
+      placeholder: 1.2.0
     validations:
       required: true
 

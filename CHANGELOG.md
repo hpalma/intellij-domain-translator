@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.2.1] - 2025-03-14
+
+### Fixed
+
+- Removed gradle version from github bug report.
+- https://github.com/hpalma/intellij-domain-translator/issues/2
+
 ## [1.2.0] - 2025-02-11
 
 ### Added
@@ -75,7 +82,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.1.0
 [1.0.9]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.0.9

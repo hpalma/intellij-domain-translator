@@ -4,16 +4,8 @@
                 implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
                 language="JavaScript"/>
 
-        <codeInsight.inlayProvider
-                implementationClass="org.hugopalma.domaintranslator.editor.HintProvider"
-                language="TypeScript"/>
-
         <annotator
                 language="JavaScript"
-                implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
-
-        <annotator
-                language="TypeScript"
                 implementationClass="org.hugopalma.domaintranslator.editor.DocumentationProvider"/>
     </extensions>
 </idea-plugin>
