@@ -2,6 +2,7 @@ package org.hugopalma.domaintranslator.dictionary
 
 import io.ktor.util.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class DictionaryTest {
@@ -34,5 +35,12 @@ class DictionaryTest {
         val dictionary = Dictionary(mapOf(Pair("somekey", "my translation")))
 
         assertEquals("FIRST_MY_TRANSLATION_AFTER", dictionary.translate("FIRST_SOMEKEY_AFTER"))
+    }
+
+    @Test
+    fun `if translation is same as original`() {
+        val dictionary = Dictionary(mapOf(Pair("word", "word")))
+
+        assertNull(dictionary.translate("word"))
     }
 }

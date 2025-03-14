@@ -8,6 +8,7 @@
 
 - Removed gradle version from github bug report.
 - https://github.com/hpalma/intellij-domain-translator/issues/2
+- https://github.com/hpalma/intellij-domain-translator/issues/7
 
 ## [1.2.0] - 2025-02-11
 

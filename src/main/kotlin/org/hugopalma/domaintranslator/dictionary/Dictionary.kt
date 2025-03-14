@@ -12,10 +12,12 @@ class Dictionary(values: Map<String, String>) {
     fun translate(text: String): String? {
         val lowercaseToTranslate = text.toLowerCasePreservingASCIIRules()
 
+        // is exact text in dictionary?
         if (dictionary.containsKey(lowercaseToTranslate)) {
             return formatTranslation(text, dictionary[lowercaseToTranslate]!!)
         }
 
+        // check if the text contains words in the dictionary
         dictionary.forEach {
             if (lowercaseToTranslate.contains(it.key)) {
                 val startIndex = lowercaseToTranslate.indexOf(it.key)
@@ -23,7 +25,9 @@ class Dictionary(values: Map<String, String>) {
                 val toTranslate = text.substring(startIndex, startIndex + it.key.length)
                 val translated = formatTranslation(toTranslate, dictionary[it.key]!!)
 
-                return text.replace(it.key, translated, true)
+                if (translated != null) {
+                    return text.replace(it.key, translated, true)
+                }
             }
         }
 
@@ -34,7 +38,11 @@ class Dictionary(values: Map<String, String>) {
         return dictionary.containsKey(text.toLowerCasePreservingASCIIRules())
     }
 
-    private fun formatTranslation(original: String, translation: String): String {
+    private fun formatTranslation(original: String, translation: String): String? {
+        if (original.equals(translation, ignoreCase = true)) {
+            return null;
+        }
+
         if (original.isUppercase()) {
             return translation.uppercase().replace(" ", "_")
         }
