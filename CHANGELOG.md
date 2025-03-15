@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [1.2.2] - 2025-03-15
+
+### Added
+
+- support german umlauts (https://github.com/hpalma/intellij-domain-translator/issues/9)
+
+### Fixed
+
+- improve dictionary refresh process
+
 ## [1.2.1] - 2025-03-14
 
 ### Fixed
@@ -83,7 +93,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.0.8...v1.1.0

@@ -12,7 +12,7 @@ class Dictionary(values: Map<String, String>) {
     val timestamp = System.currentTimeMillis()
 
     fun translate(text: String): String? {
-        val translatableKeys = translatableKeys(text);
+        val translatableKeys = translatableKeys(text)
 
         for (translatableKey in translatableKeys) {
             // is exact text in dictionary?
@@ -43,7 +43,7 @@ class Dictionary(values: Map<String, String>) {
 
         val expanders = listOf(germanUmlauts)
 
-        return applyExpanders(lowercaseText, expanders);
+        return applyExpanders(lowercaseText, expanders)
     }
 
     private fun applyExpanders(input: String, keyExpanders: List<KeyExpander>): List<String> {
@@ -54,7 +54,7 @@ class Dictionary(values: Map<String, String>) {
 
     private fun formatTranslation(original: String, translation: String): String? {
         if (original.equals(translation, ignoreCase = true)) {
-            return null;
+            return null
         }
 
         if (original.isUppercase()) {

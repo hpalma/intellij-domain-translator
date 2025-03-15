@@ -22,8 +22,10 @@ class DictionaryService {
     @Synchronized
     fun getDictionary(element: PsiElement): Dictionary? {
         val module: Module = ModuleUtilCore.findModuleForPsiElement(element) ?: return null
-        val moduleName = module.name
         val dictionaryFile = findFileInContentRoots(module) ?: return null
+        dictionaryFile.refresh(true, false)
+
+        val moduleName = module.name
         val dictionary = dictionaries[moduleName]
 
         if (dictionary != null && dictionary.timestamp >= dictionaryFile.timeStamp) {
@@ -31,7 +33,6 @@ class DictionaryService {
         }
 
         dictionaries[moduleName] = Dictionary(parseCsvToMap(dictionaryFile.path))
-
         return dictionaries[moduleName]
     }
 
