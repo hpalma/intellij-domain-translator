@@ -3,6 +3,8 @@ package org.hugopalma.domaintranslator.dictionary
 import ai.grazie.utils.isUppercase
 import io.ktor.util.*
 
+typealias KeyExpander = (String) -> String
+
 class Dictionary(values: Map<String, String>) {
 
     private val dictionary: Map<String, String> = values.toMap()
@@ -10,23 +12,25 @@ class Dictionary(values: Map<String, String>) {
     val timestamp = System.currentTimeMillis()
 
     fun translate(text: String): String? {
-        val lowercaseToTranslate = text.toLowerCasePreservingASCIIRules()
+        val translatableKeys = translatableKeys(text);
 
-        // is exact text in dictionary?
-        if (dictionary.containsKey(lowercaseToTranslate)) {
-            return formatTranslation(text, dictionary[lowercaseToTranslate]!!)
-        }
+        for (translatableKey in translatableKeys) {
+            // is exact text in dictionary?
+            if (dictionary.containsKey(translatableKey)) {
+                return formatTranslation(text, dictionary[translatableKey]!!)
+            }
 
-        // check if the text contains words in the dictionary
-        dictionary.forEach {
-            if (lowercaseToTranslate.contains(it.key)) {
-                val startIndex = lowercaseToTranslate.indexOf(it.key)
+            // check if the text contains words in the dictionary
+            dictionary.forEach {
+                if (translatableKey.contains(it.key)) {
+                    val startIndex = translatableKey.indexOf(it.key)
 
-                val toTranslate = text.substring(startIndex, startIndex + it.key.length)
-                val translated = formatTranslation(toTranslate, dictionary[it.key]!!)
+                    val toTranslate = text.substring(startIndex, startIndex + it.key.length)
+                    val translated = formatTranslation(toTranslate, dictionary[it.key]!!)
 
-                if (translated != null) {
-                    return text.replace(it.key, translated, true)
+                    if (translated != null) {
+                        return text.replace(it.key, translated, true)
+                    }
                 }
             }
         }
@@ -34,8 +38,18 @@ class Dictionary(values: Map<String, String>) {
         return null
     }
 
-    fun contains(text: String): Boolean {
-        return dictionary.containsKey(text.toLowerCasePreservingASCIIRules())
+    private fun translatableKeys(text: String): Collection<String> {
+        val lowercaseText = text.toLowerCasePreservingASCIIRules()
+
+        val expanders = listOf(germanUmlauts)
+
+        return applyExpanders(lowercaseText, expanders);
+    }
+
+    private fun applyExpanders(input: String, keyExpanders: List<KeyExpander>): List<String> {
+        return keyExpanders.map { expander ->
+            expander(input)
+        }
     }
 
     private fun formatTranslation(original: String, translation: String): String? {
@@ -69,5 +83,9 @@ class Dictionary(values: Map<String, String>) {
         }
 
         return transformed
+    }
+
+    private val germanUmlauts: KeyExpander = { s ->
+        s.replace("ae", "ä").replace("oe", "ö").replace("ue", "ü").replace("ss", "ß")
     }
 }
