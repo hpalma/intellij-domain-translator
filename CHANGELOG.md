@@ -8,10 +8,6 @@
 
 - support german umlauts (https://github.com/hpalma/intellij-domain-translator/issues/9)
 
-### Fixed
-
-- improve dictionary refresh process
-
 ## [1.2.1] - 2025-03-14
 
 ### Fixed
