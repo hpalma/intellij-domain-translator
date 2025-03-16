@@ -23,7 +23,6 @@ class DictionaryService {
     fun getDictionary(element: PsiElement): Dictionary? {
         val module: Module = ModuleUtilCore.findModuleForPsiElement(element) ?: return null
         val dictionaryFile = findFileInContentRoots(module) ?: return null
-        dictionaryFile.refresh(true, false)
 
         val moduleName = module.name
         val dictionary = dictionaries[moduleName]
