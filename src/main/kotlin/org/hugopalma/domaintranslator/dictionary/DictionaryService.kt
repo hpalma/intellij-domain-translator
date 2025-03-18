@@ -2,6 +2,7 @@ package org.hugopalma.domaintranslator.dictionary
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.module.ModuleUtilCore
@@ -18,6 +19,7 @@ import kotlin.io.path.Path
 @Service(Service.Level.PROJECT)
 class DictionaryService {
     private val dictionaries: MutableMap<String, Dictionary> = mutableMapOf()
+    private var lastRefreshTimestamp = System.currentTimeMillis()
 
     @Synchronized
     fun getDictionary(element: PsiElement): Dictionary? {
@@ -27,11 +29,17 @@ class DictionaryService {
         val moduleName = module.name
         val dictionary = dictionaries[moduleName]
 
+        // refresh file from filesystem every 10 seconds at least
+        if (dictionary != null && System.currentTimeMillis().minus(lastRefreshTimestamp) > 10000) {
+            dictionaryFile.refresh(true, false)
+            lastRefreshTimestamp = System.currentTimeMillis();
+        }
+
         if (dictionary != null && dictionary.timestamp >= dictionaryFile.timeStamp) {
             return dictionary
         }
 
-        dictionaries[moduleName] = Dictionary(parseCsvToMap(dictionaryFile.path))
+        dictionaries[moduleName] = Dictionary(parseCsvToMap(dictionaryFile.path), dictionaryFile.timeStamp)
         return dictionaries[moduleName]
     }
 

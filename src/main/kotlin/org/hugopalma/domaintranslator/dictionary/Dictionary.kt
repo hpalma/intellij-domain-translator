@@ -5,11 +5,9 @@ import io.ktor.util.*
 
 typealias KeyExpander = (String) -> String
 
-class Dictionary(values: Map<String, String>) {
+class Dictionary(values: Map<String, String>, val timestamp: Long) {
 
     private val dictionary: Map<String, String> = values.toMap()
-
-    val timestamp = System.currentTimeMillis()
 
     fun translate(text: String): String? {
         val translatableKeys = translatableKeys(text)

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Improve dictionary file refresh rate
+
 ## [1.2.2] - 2025-03-15
 
 ### Added
