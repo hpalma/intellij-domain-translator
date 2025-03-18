@@ -2,7 +2,6 @@ package org.hugopalma.domaintranslator.dictionary
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.module.ModuleUtilCore
@@ -32,7 +31,7 @@ class DictionaryService {
         // refresh file from filesystem every 10 seconds at least
         if (dictionary != null && System.currentTimeMillis().minus(lastRefreshTimestamp) > 10000) {
             dictionaryFile.refresh(true, false)
-            lastRefreshTimestamp = System.currentTimeMillis();
+            lastRefreshTimestamp = System.currentTimeMillis()
         }
 
         if (dictionary != null && dictionary.timestamp >= dictionaryFile.timeStamp) {
