@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- support for more typescript expressions.
+
 ## [1.2.3] - 2025-03-18
 
 ### Fixed
