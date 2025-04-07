@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.6] - 2025-04-07
+
+### Added
+
+- support for javascript properties.
+
 ## [1.2.5] - 2025-04-07
 
 ### Fix
@@ -107,7 +113,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.5...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.6...HEAD
+[1.2.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.2...v1.2.3

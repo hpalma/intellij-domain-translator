@@ -5,6 +5,7 @@ import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.lang.ecmascript6.psi.impl.ES6ClassImpl
 import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.javascript.TypeScriptFileType
+import com.intellij.lang.javascript.psi.JSProperty
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptCompileTimeType
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptPropertySignature
 import com.intellij.lang.javascript.psi.impl.JSFunctionImpl
@@ -56,7 +57,8 @@ private fun isSupportedKotlinElement(element: PsiElement?): Boolean {
                     element.parent is KtTypeReference ||
                     element.parent is KtSuperTypeList ||
                     element.parent is TypeScriptPropertySignature ||
-                    element.parent is TypeScriptCompileTimeType)
+                    element.parent is TypeScriptCompileTimeType ||
+                    element.parent is JSProperty)
 }
 
 private fun isKotlinEnabled(): Boolean {
