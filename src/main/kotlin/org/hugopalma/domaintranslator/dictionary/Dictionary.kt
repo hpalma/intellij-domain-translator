@@ -41,7 +41,7 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
 
         val expanders = listOf(germanUmlauts)
 
-        return applyExpanders(lowercaseText, expanders)
+        return applyExpanders(lowercaseText, expanders) + text
     }
 
     private fun applyExpanders(input: String, keyExpanders: List<KeyExpander>): List<String> {

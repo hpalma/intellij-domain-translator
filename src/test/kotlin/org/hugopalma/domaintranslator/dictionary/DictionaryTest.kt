@@ -46,10 +46,11 @@ class DictionaryTest {
 
     @Test
     fun `german umlauts`() {
-        val dictionary = Dictionary(mapOf(Pair("stückzahl", "quantity"), Pair("straße", "road")), 0)
+        val dictionary = Dictionary(mapOf(Pair("stückzahl", "quantity"), Pair("straße", "road"), Pair("anlagedauer", "investment period")), 0)
 
         assertEquals("quantity", dictionary.translate("stueckzahl"))
         assertEquals("quantity", dictionary.translate("stückzahl"))
         assertEquals("road", dictionary.translate("strasse"))
+        assertEquals("investmentPeriod", dictionary.translate("anlagedauer"))
     }
 }

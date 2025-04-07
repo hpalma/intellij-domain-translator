@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fix
+
+- fixed bug with German umlauts.
+
 ## [1.2.4] - 2025-03-25
 
 ### Added
