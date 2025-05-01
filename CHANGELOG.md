@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.7] - 2025-05-01
+
+### Fix
+
+- intellij platform 2025.1 compatibility
+
 ## [1.2.6] - 2025-04-07
 
 ### Added
@@ -113,7 +119,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.6...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.7...HEAD
+[1.2.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.6...v1.2.7
 [1.2.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.3...v1.2.4
