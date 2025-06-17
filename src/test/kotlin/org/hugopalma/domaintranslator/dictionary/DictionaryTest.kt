@@ -11,23 +11,29 @@ class DictionaryTest {
     fun `exact word is translated`() {
         val dictionary = Dictionary(mapOf(Pair("somekey", "translation")), 0)
 
-        assertEquals("Translation", dictionary.translate("SomeKey"))
+        assertEquals("Translation", dictionary.translate("Somekey"))
     }
 
     @Test
     fun `a word in the middle of the text is translated`() {
         val dictionary = Dictionary(mapOf(Pair("somekey", "translation")), 0)
 
-        assertEquals("settranslationafter", dictionary.translate("setSomeKeyAfter")?.toLowerCasePreservingASCIIRules())
+        assertEquals("settranslationafter", dictionary.translate("setSomekeyAfter")?.toLowerCasePreservingASCIIRules())
     }
 
     @Test
     fun `camelcase is preserved`() {
         val dictionary = Dictionary(mapOf(Pair("somekey", "my translation")), 0)
 
-        assertEquals("setMyTranslationAfter", dictionary.translate("setSomeKeyAfter"))
-        assertEquals("setmyTranslationAfter", dictionary.translate("setsomeKeyAfter"))
+        assertEquals("setMyTranslationAfter", dictionary.translate("setSomekeyAfter"))
         assertEquals("MyTranslation", dictionary.translate("Somekey"))
+    }
+
+    @Test
+    fun `camelcase composition`() {
+        val dictionary = Dictionary(mapOf(Pair("somekey", "sometranslation"), Pair("otherkey", "othertranslation")), 0)
+
+        assertEquals("setSometranslationOthertranslationAfter", dictionary.translate("setSomekeyOtherkeyAfter"))
     }
 
     @Test
@@ -41,14 +47,14 @@ class DictionaryTest {
     fun `if translation is same as original`() {
         val dictionary = Dictionary(mapOf(Pair("word", "word")), 0)
 
-        assertNull(dictionary.translate("word"))
+        assertEquals("word", dictionary.translate("word"))
     }
 
     @Test
     fun `german umlauts`() {
         val dictionary = Dictionary(mapOf(Pair("stückzahl", "quantity"), Pair("straße", "road"), Pair("anlagedauer", "investment period")), 0)
 
-        assertEquals("quantity", dictionary.translate("stueckzahl"))
+        assertEquals("Quantity", dictionary.translate("Stueckzahl"))
         assertEquals("quantity", dictionary.translate("stückzahl"))
         assertEquals("road", dictionary.translate("strasse"))
         assertEquals("investmentPeriod", dictionary.translate("anlagedauer"))

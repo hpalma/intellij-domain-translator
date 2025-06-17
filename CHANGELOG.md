@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.8] - 2025-06-17
+
+### Added
+
+- support for several translations in same token.
+
 ## [1.2.7] - 2025-05-01
 
 ### Fix
@@ -119,7 +125,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.7...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.8...HEAD
+[1.2.8]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.7...v1.2.8
 [1.2.7]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.6...v1.2.7
 [1.2.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.4...v1.2.5

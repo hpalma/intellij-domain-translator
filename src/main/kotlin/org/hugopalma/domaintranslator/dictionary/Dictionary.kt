@@ -10,44 +10,39 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
     private val dictionary: Map<String, String> = values.toMap()
 
     fun translate(text: String): String? {
-        val translatableKeys = translatableKeys(text)
+        val translatableKeys = decomposeKeys(text)
+        var translatedText = text
 
         for (translatableKey in translatableKeys) {
-            // is exact text in dictionary?
-            if (dictionary.containsKey(translatableKey)) {
-                return formatTranslation(text, dictionary[translatableKey]!!)
-            }
+            val translation = findTranslation(translatableKey)
 
-            // check if the text contains words in the dictionary
-            dictionary.forEach {
-                if (translatableKey.contains(it.key)) {
-                    val startIndex = translatableKey.indexOf(it.key)
-
-                    val toTranslate = text.substring(startIndex, startIndex + it.key.length)
-                    val translated = formatTranslation(toTranslate, dictionary[it.key]!!)
-
-                    if (translated != null) {
-                        return text.replace(it.key, translated, true)
-                    }
+            // check which key is in dictionary if any
+            if (translation != null) {
+                val formatedTranslation = formatTranslation(translatableKey, translation)
+                if (formatedTranslation != null) {
+                    translatedText = translatedText.replace(translatableKey, formatedTranslation)
                 }
             }
         }
 
-        return null
+        return translatedText
     }
 
-    private fun translatableKeys(text: String): Collection<String> {
-        val lowercaseText = text.toLowerCasePreservingASCIIRules()
+    private fun findTranslation(text: String): String? {
+        val lowercaseKey = text.toLowerCasePreservingASCIIRules()
+        val keyWithGermanUmlauts = germanUmlauts.invoke(lowercaseKey)
 
-        val expanders = listOf(germanUmlauts)
-
-        return applyExpanders(lowercaseText, expanders) + text
-    }
-
-    private fun applyExpanders(input: String, keyExpanders: List<KeyExpander>): List<String> {
-        return keyExpanders.map { expander ->
-            expander(input)
+        val translation = dictionary[lowercaseKey]
+        return if (translation == null) {
+            dictionary[keyWithGermanUmlauts]
+        } else {
+            translation
         }
+    }
+
+    private fun decomposeKeys(text: String): List<String> {
+        return text.split(Regex("_|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])"))
+            .filter { it.isNotEmpty() }
     }
 
     private fun formatTranslation(original: String, translation: String): String? {
