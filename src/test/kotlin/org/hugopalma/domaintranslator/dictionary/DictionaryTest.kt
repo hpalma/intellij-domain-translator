@@ -47,7 +47,7 @@ class DictionaryTest {
     fun `if translation is same as original`() {
         val dictionary = Dictionary(mapOf(Pair("word", "word")), 0)
 
-        assertEquals("word", dictionary.translate("word"))
+        assertNull(dictionary.translate("word"))
     }
 
     @Test

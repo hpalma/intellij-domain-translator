@@ -25,7 +25,11 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
             }
         }
 
-        return translatedText
+        return if (translatedText.equals(text)) {
+            null
+        } else {
+            translatedText
+        }
     }
 
     private fun findTranslation(text: String): String? {
