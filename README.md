@@ -1,7 +1,7 @@
 # IntelliJ Domain Translator
 
-[![Version](https://img.shields.io/jetbrains/plugin/v/21320.svg)](https://plugins.jetbrains.com/plugin/21320)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/21320.svg)](https://plugins.jetbrains.com/plugin/21320)
+[![Version](https://img.shields.io/jetbrains/plugin/v/226180.svg)](https://plugins.jetbrains.com/plugin/26180)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/26180.svg)](https://plugins.jetbrains.com/plugin/26180)
 
 A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms. The plugin displays inline translation hints above code elements without modifying your source code.
 
