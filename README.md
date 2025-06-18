@@ -15,7 +15,6 @@ A powerful IntelliJ IDEA plugin that provides domain-specific translation functi
   - Supports German umlauts (ä, ö, ü, ß)
 - **Custom Dictionary**: Uses CSV-based dictionary files for domain-specific translations
 - **Configurable Display**: Option to hide specific translations
-- **Real-time Updates**: Dictionary file is refreshed automatically every 10 seconds
 - **Module-based**: Works seamlessly with IntelliJ's multi-module projects
 
 ## Installation
@@ -42,13 +41,6 @@ estudiante;student
 primer nombre;first name
 ```
 
-### Supported Features
-
-- **Multi-word translations**: `jahresabschluss;annual financial statement`
-- **Compound words**: Automatically decomposes German compound words
-- **Case preservation**: `StückZahl` → `Quantity`, `stück_zahl` → `quantity`
-- **Multiple translations**: Multiple entries for the same term are supported
-
 ## Usage
 
 Once configured, the plugin automatically:
@@ -56,7 +48,6 @@ Once configured, the plugin automatically:
 1. Scans your code for terms found in the dictionary
 2. Displays translation hints above matching code elements
 3. Updates translations when the dictionary file changes
-4. Only shows translations that differ from the original term
 
 ## Supported File Types
 
@@ -91,10 +82,6 @@ cd intellij-domain-translator
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
