@@ -20,33 +20,40 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
             if (translation != null) {
                 val formatedTranslation = formatTranslation(translatableKey, translation)
                 if (formatedTranslation != null) {
-                    if (translatedText.contains(translatableKey)) {
-                        translatedText = translatedText.replace(translatableKey, formatedTranslation)
-                    } else {
-                        translatedText = translatedText.replace(translatableKey.replace(" ", ""), formatedTranslation)
-                        translatedText = translatedText.replace(translatableKey.replace(" ", "_"), formatedTranslation)
-                    }
+                    translatedText = replaceWithTranslation(translatedText, translatableKey, formatedTranslation)
                 }
             }
         }
 
-        return if (translatedText.equals(text)) {
+        return if (translatedText == text) {
             null
         } else {
             translatedText
         }
     }
 
+    private fun replaceWithTranslation(text: String, translatableKey: String, translation: String): String {
+        var translatedText = text
+
+        // exact match of key in text?
+        if (translatedText.contains(translatableKey)) {
+            translatedText = translatedText.replace(translatableKey, translation)
+        } else {
+            // look for key without whitespaces (support for multiple words in camelcase)
+            translatedText = translatedText.replace(translatableKey.replace(" ", ""), translation)
+
+            // look for key replacing whitespaces with underscore(support for multiple words in uppercase)
+            translatedText = translatedText.replace(translatableKey.replace(" ", "_"), translation)
+        }
+
+        return translatedText
+    }
+
     private fun findTranslation(text: String): String? {
         val lowercaseKey = text.toLowerCasePreservingASCIIRules()
         val keyWithGermanUmlauts = germanUmlauts.invoke(lowercaseKey)
 
-        val translation = dictionary[lowercaseKey]
-        return if (translation == null) {
-            dictionary[keyWithGermanUmlauts]
-        } else {
-            translation
-        }
+        return dictionary[lowercaseKey] ?: dictionary[keyWithGermanUmlauts]
     }
 
     private fun decomposeKeys(text: String): List<String> {
@@ -56,7 +63,7 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
         return (words.generateMultiWordCombinations() + words).sortedByDescending { it.length }
     }
 
-    fun List<String>.generateMultiWordCombinations(): List<String> {
+    private fun List<String>.generateMultiWordCombinations(): List<String> {
         return this.indices.flatMap { i ->
             (i + 1 until this.size).map { j ->
                 this.subList(i, j + 1).joinToString(" ")
