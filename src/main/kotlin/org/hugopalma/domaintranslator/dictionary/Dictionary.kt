@@ -20,7 +20,12 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
             if (translation != null) {
                 val formatedTranslation = formatTranslation(translatableKey, translation)
                 if (formatedTranslation != null) {
-                    translatedText = translatedText.replace(translatableKey, formatedTranslation)
+                    if (translatedText.contains(translatableKey)) {
+                        translatedText = translatedText.replace(translatableKey, formatedTranslation)
+                    } else {
+                        translatedText = translatedText.replace(translatableKey.replace(" ", ""), formatedTranslation)
+                        translatedText = translatedText.replace(translatableKey.replace(" ", "_"), formatedTranslation)
+                    }
                 }
             }
         }
@@ -45,8 +50,18 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
     }
 
     private fun decomposeKeys(text: String): List<String> {
-        return text.split(Regex("_|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])"))
+        val words = text.split(Regex("_|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])"))
             .filter { it.isNotEmpty() }
+
+        return (words.generateMultiWordCombinations() + words).sortedByDescending { it.length }
+    }
+
+    fun List<String>.generateMultiWordCombinations(): List<String> {
+        return this.indices.flatMap { i ->
+            (i + 1 until this.size).map { j ->
+                this.subList(i, j + 1).joinToString(" ")
+            }
+        }
     }
 
     private fun formatTranslation(original: String, translation: String): String? {
@@ -54,7 +69,7 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
             return null
         }
 
-        if (original.isUppercase()) {
+        if (original.replace(" ", "").isUppercase()) {
             return translation.uppercase().replace(" ", "_")
         }
 

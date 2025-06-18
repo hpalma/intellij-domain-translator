@@ -23,10 +23,11 @@ class DictionaryTest {
 
     @Test
     fun `camelcase is preserved`() {
-        val dictionary = Dictionary(mapOf(Pair("somekey", "my translation")), 0)
+        val dictionary = Dictionary(mapOf(Pair("somekey", "my translation"), Pair("another key", "my other translation")), 0)
 
         assertEquals("setMyTranslationAfter", dictionary.translate("setSomekeyAfter"))
         assertEquals("MyTranslation", dictionary.translate("Somekey"))
+        assertEquals("MyOtherTranslation", dictionary.translate("AnotherKey"))
     }
 
     @Test
@@ -38,9 +39,10 @@ class DictionaryTest {
 
     @Test
     fun `snakecase is preserved`() {
-        val dictionary = Dictionary(mapOf(Pair("somekey", "my translation")), 0)
+        val dictionary = Dictionary(mapOf(Pair("somekey", "my translation"), Pair("another key", "my other translation")), 0)
 
         assertEquals("FIRST_MY_TRANSLATION_AFTER", dictionary.translate("FIRST_SOMEKEY_AFTER"))
+        assertEquals("FIRST_MY_OTHER_TRANSLATION_AFTER", dictionary.translate("FIRST_ANOTHER_KEY_AFTER"))
     }
 
     @Test
