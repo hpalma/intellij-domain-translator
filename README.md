@@ -5,6 +5,9 @@
 
 A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms. The plugin displays inline translation hints above code elements without modifying your source code.
 
+<!-- Plugin description -->
+<!-- Plugin description end -->
+
 ## Features
 
 - **Inline Translation Hints**: Displays translations directly above code elements containing translatable terms

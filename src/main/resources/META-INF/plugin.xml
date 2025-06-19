@@ -3,17 +3,24 @@
     <name>Domain Translator</name>
     <vendor>Hugo Palma</vendor>
     <description><![CDATA[
-        Translates domain words based on a csv file. Does not connect to any translation service.
-        <br/><br/>
-        Use this if you want to have a custom-made glossary of terms that you want to display its translation. Very useful for example
-        in projects where the domain language is foreign.
-        <br/><br/>
-        <b>Supported Languages:</b>
+        A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms.
+        The plugin displays inline translation hints above code elements without modifying your source code.
+
+        <b>Features:</b>
+        <br/>
         <ul>
-        <li>Java</li>
-        <li>Kotlin</li>
-        <li>Javascript</li>
-        <li>Typescript</li>
+        <li><b>Inline Translation Hints:</b> Displays translations directly above code elements containing translatable terms</li>
+        <li><b>Multi-language Support:</b> Works with Java, Kotlin, JavaScript, TypeScript, and Vue.js files</li>
+        <li><b>Smart Text Processing:</b>
+        <ul>
+          <li>Preserves camelCase, snake_case, and other naming conventions</li>
+          <li>Handles compound words and multi-word translations</li>
+          <li>Supports German umlauts (ä, ö, ü, ß)</li>
+        </ul>
+        </li>
+        <li><b>Custom Dictionary:</b> Uses CSV-based dictionary files for domain-specific translations</li>
+        <li><b>Configurable Display:</b> Option to hide specific translations</li>
+        <li><b>Module-based:</b> Works seamlessly with IntelliJ's multi-module projects</li>
         </ul>
     ]]></description>
 
@@ -40,6 +47,6 @@
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
-        <supportsKotlinPluginMode supportsK2="true" />
+        <supportsKotlinPluginMode supportsK2="true"/>
     </extensions>
 </idea-plugin>
