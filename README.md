@@ -5,28 +5,6 @@
 
 A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms. The plugin displays inline translation hints above code elements without modifying your source code.
 
-<!-- Plugin description -->
-A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms.
-The plugin displays inline translation hints above code elements without modifying your source code.
-
-<b>Features:</b>
-<br/>
-<ul>
-<li><b>Inline Translation Hints:</b> Displays translations directly above code elements containing translatable terms</li>
-<li><b>Multi-language Support:</b> Works with Java, Kotlin, JavaScript, TypeScript, and Vue.js files</li>
-<li><b>Smart Text Processing:</b>
-<ul>
-  <li>Preserves camelCase, snake_case, and other naming conventions</li>
-  <li>Handles compound words and multi-word translations</li>
-  <li>Supports German umlauts (ä, ö, ü, ß)</li>
-</ul>
-</li>
-<li><b>Custom Dictionary:</b> Uses CSV-based dictionary files for domain-specific translations</li>
-<li><b>Configurable Display:</b> Option to hide specific translations</li>
-<li><b>Module-based:</b> Works seamlessly with IntelliJ's multi-module projects</li>
-</ul>
-<!-- Plugin description end -->
-
 ## Features
 
 - **Inline Translation Hints**: Displays translations directly above code elements containing translatable terms
