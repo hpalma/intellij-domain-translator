@@ -2,6 +2,7 @@ package org.hugopalma.domaintranslator.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.Configurable
+import java.util.Locale
 import javax.swing.JComponent
 
 
@@ -21,7 +22,9 @@ class SettingsConfigurable : Configurable {
         val state = getState()
         return settingsComponent!!.showInlays() != state.showInlays ||
                 settingsComponent!!.getDictionaryFile() != state.dictionaryFile ||
-                settingsComponent!!.getHideInlays() != state.hideInlays
+                settingsComponent!!.getHideInlays() != state.hideInlays ||
+                settingsComponent!!.getUseSystemLanguage() != state.useSystemLanguage ||
+                settingsComponent!!.getSelectedLanguage()?.locale!!.language != state.language
     }
 
     override fun reset() {
@@ -29,6 +32,8 @@ class SettingsConfigurable : Configurable {
         settingsComponent!!.setDictionaryFile(state.dictionaryFile)
         settingsComponent!!.setShowInlays(state.showInlays)
         settingsComponent!!.setHideInlays(state.hideInlays)
+        settingsComponent!!.setUseSystemLanguage(state.useSystemLanguage)
+        settingsComponent!!.setSelectedLanguage(Language(Locale.of(state.language)))
     }
 
     override fun disposeUIResources() {
@@ -40,6 +45,8 @@ class SettingsConfigurable : Configurable {
         state.dictionaryFile = settingsComponent!!.getDictionaryFile()
         state.showInlays = settingsComponent!!.showInlays()
         state.hideInlays = settingsComponent!!.getHideInlays()
+        state.useSystemLanguage = settingsComponent!!.getUseSystemLanguage()
+        state.language = settingsComponent!!.getSelectedLanguage()?.locale!!.language
     }
 
     override fun getDisplayName(): String {

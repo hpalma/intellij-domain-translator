@@ -1,5 +1,7 @@
 package org.hugopalma.domaintranslator.dictionary
 
+import com.google.common.cache.CacheBuilder
+import com.intellij.DynamicBundle
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.module.Module
@@ -13,17 +15,31 @@ import com.intellij.psi.PsiElement
 import io.ktor.util.*
 import org.hugopalma.domaintranslator.settings.Settings
 import java.io.File
+import java.util.concurrent.TimeUnit
 import kotlin.io.path.Path
 
 @Service(Service.Level.PROJECT)
 class DictionaryService {
     private val dictionaries: MutableMap<String, Dictionary> = mutableMapOf()
     private var lastRefreshTimestamp = System.currentTimeMillis()
+    private val moduleDictionaryFileCache = CacheBuilder.newBuilder()
+        .expireAfterWrite(30, TimeUnit.SECONDS)
+        .build<String, VirtualFile>()
 
     @Synchronized
     fun getDictionary(element: PsiElement): Dictionary? {
         val module: Module = ModuleUtilCore.findModuleForPsiElement(element) ?: return null
-        val dictionaryFile = findFileInContentRoots(module) ?: return null
+        val dictionaryFile = moduleDictionaryFileCache.getIfPresent(module.name) ?: run {
+            val newFile = findDictionaryFile(module)
+            if (newFile != null) {
+                moduleDictionaryFileCache.put(module.name, newFile)
+                lastRefreshTimestamp = 0
+            }
+            newFile
+        }
+        if (dictionaryFile == null) {
+            return null
+        }
 
         val moduleName = module.name
         val dictionary = dictionaries[moduleName]
@@ -42,26 +58,35 @@ class DictionaryService {
         return dictionaries[moduleName]
     }
 
-    private fun findFileInContentRoots(module: Module): VirtualFile? {
+    private fun findDictionaryFile(module: Module): VirtualFile? {
         val rootModule = findRootModuleByFolderStructure(module.project, module) ?: module
         val contentRoots = ModuleRootManager.getInstance(rootModule).contentRoots
-        val settings = ApplicationManager.getApplication().getService(Settings::class.java).state
+        val pluginSettings = ApplicationManager.getApplication().getService(Settings::class.java).state
 
-        val filePath: String
-        if (settings.dictionaryFile != null) {
-            if (Path(settings.dictionaryFile!!).isAbsolute) {
-                return LocalFileSystem.getInstance().findFileByPath(settings.dictionaryFile!!)
+        val filePath: MutableList<String> = mutableListOf()
+        if (pluginSettings.dictionaryFile != null) {
+            if (Path(pluginSettings.dictionaryFile!!).isAbsolute) {
+                return LocalFileSystem.getInstance().findFileByPath(pluginSettings.dictionaryFile!!)
             }
 
-            filePath = settings.dictionaryFile!!
+            filePath.add(pluginSettings.dictionaryFile!!)
         } else {
-            filePath = "dictionary.csv"
+            var language: String
+            if (pluginSettings.useSystemLanguage) {
+                language = DynamicBundle.getLocale().language
+            } else {
+                language = pluginSettings.language
+            }
+            filePath.add("dictionary_${language}.csv")
+            filePath.add("dictionary.csv")
         }
 
         for (root in contentRoots) {
-            val file = root.findChild(filePath)
-            if (file != null && !file.isDirectory) {
-                return file
+            for (currentFile in filePath) {
+                val file = root.findChild(currentFile)
+                if (file != null && !file.isDirectory) {
+                    return file
+                }
             }
         }
 

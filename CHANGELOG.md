@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- support for multiple languages
+
 ## [1.3.0] - 2025-06-18
 
 ### Added

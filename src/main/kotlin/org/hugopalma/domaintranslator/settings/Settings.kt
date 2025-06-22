@@ -1,6 +1,7 @@
 package org.hugopalma.domaintranslator.settings
 
 import com.intellij.openapi.components.*
+import java.util.Locale
 
 
 @Service
@@ -12,6 +13,10 @@ import com.intellij.openapi.components.*
 class Settings : SimplePersistentStateComponent<Settings.State>(State()) {
     class State : BaseState() {
         var showInlays: Boolean = true
+
+        var useSystemLanguage: Boolean = true
+
+        var language: String = Locale.ENGLISH.language
 
         val wordsToHideInlays = mutableListOf<String>()
 
