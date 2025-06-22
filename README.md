@@ -9,12 +9,13 @@ A powerful IntelliJ IDEA plugin that provides domain-specific translation functi
 ## Features
 
 - **Inline Translation Hints**: Displays translations directly above code elements containing translatable terms
-- **Multi-language Support**: Works with Java, Kotlin, JavaScript, TypeScript, and Vue.js files
+- **Supports Multiple Programming languages**: Works with Java, Kotlin, JavaScript, TypeScript, and Vue.js files
 - **Smart Text Processing**: 
   - Preserves camelCase, snake_case, and other naming conventions
   - Handles compound words and multi-word translations
   - Supports German umlauts (ä, ö, ü, ß)
 - **Custom Dictionary**: Uses CSV-based dictionary files for domain-specific translations
+- **Supports Multiple languages**: Add one dictionary per language
 - **Configurable Display**: Option to hide specific translations
 - **Module-based**: Works seamlessly with IntelliJ's multi-module projects
 <!-- Plugin description end -->
