@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/26180.svg)](https://plugins.jetbrains.com/plugin/26180)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/26180.svg)](https://plugins.jetbrains.com/plugin/26180)
 
+<!-- Plugin description -->
 A powerful IntelliJ IDEA plugin that provides domain-specific translation functionality for developers working on codebases with foreign language domain terms. The plugin displays inline translation hints above code elements without modifying your source code.
 
 ## Features
@@ -16,6 +17,7 @@ A powerful IntelliJ IDEA plugin that provides domain-specific translation functi
 - **Custom Dictionary**: Uses CSV-based dictionary files for domain-specific translations
 - **Configurable Display**: Option to hide specific translations
 - **Module-based**: Works seamlessly with IntelliJ's multi-module projects
+<!-- Plugin description end -->
 
 ## Installation
 
