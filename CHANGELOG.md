@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.2] - 2025-08-09
+
+### Added
+
+- update to 2025.2
+
 ## [1.3.1] - 2025-06-22
 
 ### Added
@@ -137,7 +143,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.8...v1.3.0
 [1.2.8]: https://github.com/hpalma/intellij-domain-translator/compare/v1.2.7...v1.2.8
