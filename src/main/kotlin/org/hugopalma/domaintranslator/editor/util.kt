@@ -7,9 +7,6 @@ import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.lang.ecmascript6.psi.impl.ES6ClassImpl
 import com.intellij.lang.javascript.JavaScriptFileType
 import com.intellij.lang.javascript.TypeScriptFileType
-import com.intellij.lang.javascript.psi.JSProperty
-import com.intellij.lang.javascript.psi.ecma6.TypeScriptCompileTimeType
-import com.intellij.lang.javascript.psi.ecma6.TypeScriptPropertySignature
 import com.intellij.lang.javascript.psi.impl.JSFunctionImpl
 import com.intellij.lang.javascript.psi.impl.JSReferenceExpressionImpl
 import com.intellij.lang.javascript.psi.impl.JSVariableImpl
