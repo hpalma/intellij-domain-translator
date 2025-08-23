@@ -1,5 +1,7 @@
 package org.hugopalma.domaintranslator.editor
 
+import com.google.common.cache.Cache
+import com.google.common.cache.CacheBuilder
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.lang.ecmascript6.psi.impl.ES6ClassImpl
@@ -11,7 +13,6 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptPropertySignature
 import com.intellij.lang.javascript.psi.impl.JSFunctionImpl
 import com.intellij.lang.javascript.psi.impl.JSReferenceExpressionImpl
 import com.intellij.lang.javascript.psi.impl.JSVariableImpl
-import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiIdentifier
@@ -23,10 +24,7 @@ import org.hugopalma.domaintranslator.dictionary.DictionaryService
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.vuejs.lang.html.VueFileType
-
-private val kotlinPluginId = PluginId.getId("org.jetbrains.kotlin")
-private val javascriptPluginId = PluginId.getId("JavaScript")
-private val vuePluginId = PluginId.getId("org.jetbrains.plugins.vue")
+import java.util.concurrent.TimeUnit
 
 private val SUPPORTED_LANGUAGES: Collection<*> = listOf(
     JavaFileType::class,
@@ -35,6 +33,15 @@ private val SUPPORTED_LANGUAGES: Collection<*> = listOf(
     if (isJavascriptEnabled()) TypeScriptFileType::class else null,
     if (isVueEnabled()) VueFileType::class else null,
 )
+
+private var enabledPluginsCache: Cache<String, Boolean>? = null
+
+private fun getOrCreateCache(): Cache<String, Boolean> {
+    return enabledPluginsCache ?: enabledPluginsCache ?: CacheBuilder.newBuilder()
+        .expireAfterWrite(1, TimeUnit.HOURS)
+        .build<String, Boolean>()
+        .also { enabledPluginsCache = it }
+}
 
 fun isSupported(languageFileType: FileType): Boolean {
     return SUPPORTED_LANGUAGES.any { it == languageFileType::class }
@@ -55,20 +62,25 @@ private fun isSupportedKotlinElement(element: PsiElement?): Boolean {
                     element.parent is KtClass ||
                     element.parent is KtNamedFunction ||
                     element.parent is KtTypeReference ||
-                    element.parent is KtSuperTypeList ||
-                    element.parent is TypeScriptPropertySignature ||
-                    element.parent is TypeScriptCompileTimeType ||
-                    element.parent is JSProperty)
+                    element.parent is KtSuperTypeList)
 }
 
 private fun isKotlinEnabled(): Boolean {
-    val plugin = PluginManagerCore.getPlugin(kotlinPluginId)
-    return plugin != null && plugin.isEnabled
+    return getOrCreateCache().getIfPresent("org.jetbrains.kotlin") ?: run {
+        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "org.jetbrains.kotlin" } != null
+        getOrCreateCache().put("org.jetbrains.kotlin", enabled)
+
+        return enabled
+    }
 }
 
 private fun isVueEnabled(): Boolean {
-    val plugin = PluginManagerCore.getPlugin(vuePluginId)
-    return plugin != null && plugin.isEnabled
+    return getOrCreateCache().getIfPresent("org.jetbrains.plugins.vue") ?: run {
+        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "org.jetbrains.plugins.vue" } != null
+        getOrCreateCache().put("org.jetbrains.plugins.vue", enabled)
+
+        return enabled
+    }
 }
 
 private fun isSupportedJavascriptElement(element: PsiElement?): Boolean {
@@ -85,8 +97,12 @@ private fun isSupportedJavascriptElement(element: PsiElement?): Boolean {
 }
 
 private fun isJavascriptEnabled(): Boolean {
-    val plugin = PluginManagerCore.getPlugin(javascriptPluginId)
-    return plugin != null && plugin.isEnabled
+    return getOrCreateCache().getIfPresent("JavaScript") ?: run {
+        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "JavaScript" } != null
+        getOrCreateCache().put("JavaScript", enabled)
+
+        return enabled
+    }
 }
 
 private fun isSupportedJavaElement(element: PsiElement?): Boolean {
@@ -105,4 +121,3 @@ fun findTranslation(element: PsiElement): String? {
 
     return translation
 }
-
