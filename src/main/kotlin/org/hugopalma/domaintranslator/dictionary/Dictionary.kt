@@ -1,6 +1,5 @@
 package org.hugopalma.domaintranslator.dictionary
 
-import ai.grazie.utils.isUppercase
 import io.ktor.util.*
 
 typealias KeyExpander = (String) -> String
@@ -76,7 +75,7 @@ class Dictionary(values: Map<String, String>, val timestamp: Long) {
             return null
         }
 
-        if (original.replace(" ", "").isUppercase()) {
+        if (original.replace(" ", "").filter { it.isLetter() }.all { it.isUpperCase() }) {
             return translation.uppercase().replace(" ", "_")
         }
 
