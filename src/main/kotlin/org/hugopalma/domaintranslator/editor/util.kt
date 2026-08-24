@@ -3,6 +3,7 @@ package org.hugopalma.domaintranslator.editor
 import com.google.common.cache.Cache
 import com.google.common.cache.CacheBuilder
 import com.intellij.ide.highlighter.JavaFileType
+import com.intellij.ide.plugins.PluginDetailsService
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.lang.ecmascript6.psi.impl.ES6ClassImpl
 import com.intellij.lang.javascript.JavaScriptFileType
@@ -64,7 +65,7 @@ private fun isSupportedKotlinElement(element: PsiElement?): Boolean {
 
 private fun isKotlinEnabled(): Boolean {
     return getOrCreateCache().getIfPresent("org.jetbrains.kotlin") ?: run {
-        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "org.jetbrains.kotlin" } != null
+        val enabled = PluginDetailsService.getInstance().getActivePlugins().find { it.id.idString == "org.jetbrains.kotlin" } != null
         getOrCreateCache().put("org.jetbrains.kotlin", enabled)
 
         return enabled
@@ -73,7 +74,7 @@ private fun isKotlinEnabled(): Boolean {
 
 private fun isVueEnabled(): Boolean {
     return getOrCreateCache().getIfPresent("org.jetbrains.plugins.vue") ?: run {
-        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "org.jetbrains.plugins.vue" } != null
+        val enabled = PluginDetailsService.getInstance().getActivePlugins().find { it.id.idString == "org.jetbrains.plugins.vue" } != null
         getOrCreateCache().put("org.jetbrains.plugins.vue", enabled)
 
         return enabled
@@ -95,7 +96,7 @@ private fun isSupportedJavascriptElement(element: PsiElement?): Boolean {
 
 private fun isJavascriptEnabled(): Boolean {
     return getOrCreateCache().getIfPresent("JavaScript") ?: run {
-        val enabled = PluginManagerCore.loadedPlugins.find { it.pluginId.idString == "JavaScript" } != null
+        val enabled = PluginDetailsService.getInstance().getActivePlugins().find { it.id.idString == "JavaScript" } != null
         getOrCreateCache().put("JavaScript", enabled)
 
         return enabled
