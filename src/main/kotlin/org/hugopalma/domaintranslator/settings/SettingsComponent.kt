@@ -8,12 +8,13 @@ import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBFont
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
-import okio.Path
 import org.jetbrains.kotlin.idea.base.util.onTextChange
+import java.io.File
 import java.util.*
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.plaf.LabelUI
+import kotlin.io.path.Path
 
 class SettingsComponent {
     private var mainPanel: JPanel? = null
@@ -44,7 +45,7 @@ class SettingsComponent {
 
         mainPanel = FormBuilder.createFormBuilder()
             .addLabeledComponent("Dictionary file:", dictionaryFile, 1, false)
-            .addComponent(CommentLabel("Path to dictionary .csv file relative to module root. Defaults to \$MODULE_ROOT${Path.DIRECTORY_SEPARATOR}dictionary.csv"))
+            .addComponent(CommentLabel("Path to dictionary .csv file relative to module root. Defaults to \$MODULE_ROOT${File.separator}dictionary.csv"))
             .addVerticalGap(UIUtil.DEFAULT_VGAP)
             .addComponent(showInlays, 1)
             .addComponent(CommentLabel("Should the inline domain translation be displayed"))
