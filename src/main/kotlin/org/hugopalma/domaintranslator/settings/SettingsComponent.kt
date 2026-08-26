@@ -14,7 +14,6 @@ import java.util.*
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.plaf.LabelUI
-import kotlin.io.path.Path
 
 class SettingsComponent {
     private var mainPanel: JPanel? = null
