@@ -24,13 +24,15 @@ import org.jetbrains.kotlin.psi.*
 import org.jetbrains.vuejs.lang.html.VueFileType
 import java.util.concurrent.TimeUnit
 
-private val SUPPORTED_LANGUAGES: Collection<*> = listOf(
-    JavaFileType::class,
-    if (isKotlinEnabled()) KotlinFileType::class else null,
-    if (isJavascriptEnabled()) JavaScriptFileType::class else null,
-    if (isJavascriptEnabled()) TypeScriptFileType::class else null,
-    if (isVueEnabled()) VueFileType::class else null,
-)
+private val SUPPORTED_LANGUAGES: Collection<*> by lazy {
+    listOf(
+        JavaFileType::class,
+        if (isKotlinEnabled()) KotlinFileType::class else null,
+        if (isJavascriptEnabled()) JavaScriptFileType::class else null,
+        if (isJavascriptEnabled()) TypeScriptFileType::class else null,
+        if (isVueEnabled()) VueFileType::class else null,
+    )
+}
 
 private var enabledPluginsCache: Cache<String, Boolean>? = null
 

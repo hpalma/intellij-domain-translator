@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.6] - 2026-08-28
+
+### Fixed
+
+- exception on startup
+
 ## [1.3.5] - 2026-08-21
 
 - update to 2026.2
@@ -159,7 +165,8 @@
 
 - Initial working version
 
-[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.5...HEAD
+[Unreleased]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.6...HEAD
+[1.3.6]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/hpalma/intellij-domain-translator/compare/v1.3.2...v1.3.3
